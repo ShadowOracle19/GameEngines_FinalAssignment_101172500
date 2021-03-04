@@ -15,7 +15,7 @@ namespace Weapons
 
         protected override void FireWeapon()
         {
-            Debug.Log($"{WeaponStats.BulletsInClip} || {WeaponStats.BulletsAvailable}" );
+            //Debug.Log($"{WeaponStats.BulletsInClip} || {WeaponStats.BulletsAvailable}" );
             
             if (WeaponStats.BulletsInClip > 0 && !Reloading && !WeaponHolder.Controller.IsRunning)
             {
@@ -31,6 +31,10 @@ namespace Weapons
             
                 Vector3 hitDirection = hit.point - MainCamera.transform.position;
                 Debug.DrawRay(MainCamera.transform.position, hitDirection.normalized * WeaponStats.FireDistance, Color.red);
+                if(hit.collider.gameObject.CompareTag("Target"))
+                {
+                    hit.collider.gameObject.GetComponent<target>().TargetHit();
+                }
             }
             else if(WeaponStats.BulletsInClip <= 0)
             {

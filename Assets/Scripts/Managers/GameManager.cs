@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class GameManager : MonoBehaviour
 
     public bool CursorActive { get; private set; } = true;
 
+    public TextMeshProUGUI points;
+    public int pointsValue;
 
     private void Awake()
     {
@@ -23,7 +26,10 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(this);
         }
     }
-
+    private void Update()
+    {
+        points.SetText(pointsValue.ToString());
+    }
     private void EnableCursor(bool enable)
     {
         if (enable)
@@ -48,5 +54,10 @@ public class GameManager : MonoBehaviour
     private void OnDisable()
     {
         AppEvents.MouseCursorEnabled -= EnableCursor;
+    }
+
+    public void TargetHit(int points)
+    {
+        pointsValue += points;
     }
 }
