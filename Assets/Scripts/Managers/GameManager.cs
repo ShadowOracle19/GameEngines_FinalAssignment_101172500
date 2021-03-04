@@ -11,8 +11,9 @@ public class GameManager : MonoBehaviour
 
     public bool CursorActive { get; private set; } = true;
 
-    public TextMeshProUGUI points;
-    public int pointsValue;
+    public TextMeshProUGUI targets;
+    public TextMeshProUGUI targetsRemaining;
+    public int targetsLeft;
 
     private void Awake()
     {
@@ -26,10 +27,14 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(this);
         }
     }
-    private void Update()
+
+    private void Start()
     {
-        points.SetText(pointsValue.ToString());
+        targetsLeft = FindObjectsOfType<target>().Length;
+        targetsRemaining.text = targetsLeft.ToString();
+        targets.text = targetsLeft.ToString();
     }
+
     private void EnableCursor(bool enable)
     {
         if (enable)
@@ -56,8 +61,13 @@ public class GameManager : MonoBehaviour
         AppEvents.MouseCursorEnabled -= EnableCursor;
     }
 
-    public void TargetHit(int points)
+    public void TargetHit()
     {
-        pointsValue += points;
+        targetsLeft -= 1;
+        targetsRemaining.text = targetsLeft.ToString();
+        if (targetsLeft == 0)
+        {
+            TimeController.instance.EndTimer();
+        }
     }
 }
