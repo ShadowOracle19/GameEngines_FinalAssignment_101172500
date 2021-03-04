@@ -4,6 +4,7 @@ using Parent;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Weapons;
+using TMPro;
 
 namespace Character
 {
@@ -24,7 +25,10 @@ namespace Character
         
         private CrossHairScript PlayerCrosshair;
         private Animator PlayerAnimator;
-        
+
+        public TextMeshProUGUI ammoRemaining;
+        public TextMeshProUGUI ammoTotal;
+
         //Ref
         private Camera ViewCamera;
         private WeaponComponent EquippedWeapon;
@@ -59,7 +63,7 @@ namespace Character
             EquippedWeapon = spawnedWeapon.GetComponent<WeaponComponent>();
             if (!EquippedWeapon) return;
             
-            EquippedWeapon.Initialize(this, PlayerCrosshair);
+            EquippedWeapon.Initialize(this, PlayerCrosshair, ammoTotal, ammoRemaining);
             
             GripIKLocation = EquippedWeapon.GripLocation;
             PlayerAnimator.SetInteger(WeaponTypeHash, (int)EquippedWeapon.WeaponInformation.WeaponType);

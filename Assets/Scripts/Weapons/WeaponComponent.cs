@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Character;
 using Character.UI;
 using UnityEngine;
+using TMPro;
 
 namespace Weapons
 {
@@ -28,6 +29,8 @@ namespace Weapons
         public float FireDistance;
         public bool Repeating;
         public LayerMask WeaponHitLayers;
+        public TextMeshProUGUI ammoRemaining;
+        public TextMeshProUGUI ammoTotal;
     }
 
     public class WeaponComponent : MonoBehaviour
@@ -42,6 +45,8 @@ namespace Weapons
         protected Camera MainCamera;
         protected WeaponHolder WeaponHolder;
         protected CrossHairScript CrosshairComponent;
+
+        public Transform weaponFirePoint;
   
         public bool Firing { get; private set; }
         public bool Reloading { get; private set; }
@@ -51,10 +56,12 @@ namespace Weapons
             MainCamera = Camera.main;
         }
 
-        public void Initialize(WeaponHolder weaponHolder, CrossHairScript crossHair)
+        public void Initialize(WeaponHolder weaponHolder, CrossHairScript crossHair, TextMeshProUGUI ammoTotalText, TextMeshProUGUI ammoRemainingText)
         {
             WeaponHolder = weaponHolder;
             CrosshairComponent = crossHair;
+            WeaponStats.ammoTotal = ammoTotalText;
+            WeaponStats.ammoRemaining = ammoRemainingText;
         }
 
         public virtual void StartFiringWeapon()

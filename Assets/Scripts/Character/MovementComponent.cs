@@ -44,7 +44,6 @@ namespace Character
         {
             InputVector = value.Get<Vector2>();
 
-            Debug.Log(InputVector);
             
             PlayerAnimator.SetFloat(MovementXHash, InputVector.x);
             PlayerAnimator.SetFloat(MovementYHash, InputVector.y);
@@ -56,7 +55,6 @@ namespace Character
         /// <param name="value"></param>
         public void OnRun(InputValue value)
         {
-            Debug.Log(value.isPressed);
             PlayerController.IsRunning = value.isPressed;
             PlayerAnimator.SetBool(IsRunningHash, value.isPressed);
         }

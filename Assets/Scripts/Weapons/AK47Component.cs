@@ -6,7 +6,13 @@ namespace Weapons
     public class AK47Component : WeaponComponent
     {
         private Vector3 HitLocation;
-        
+
+        public void Update()
+        {
+            WeaponStats.ammoRemaining.SetText(WeaponStats.BulletsInClip.ToString());
+            WeaponStats.ammoTotal.SetText(WeaponStats.BulletsAvailable.ToString());
+        }
+
         protected override void FireWeapon()
         {
             Debug.Log($"{WeaponStats.BulletsInClip} || {WeaponStats.BulletsAvailable}" );
